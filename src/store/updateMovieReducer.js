@@ -13,7 +13,7 @@ const GET_UPDATE_MOVIE_VALIDATION_FAILED = 'GET_UPDATE_MOVIE_VALIDATION_FAILED';
 const GET_UPDATE_MOVIE_REQUEST = 'GET_UPDATE_MOVIE_REQUEST';
 const GET_UPDATE_MOVIE_SUCCESS = 'GET_UPDATE_MOVIE_SUCCESS';
 const GET_UPDATE_MOVIE_FAILED = 'GET_UPDATE_MOVIE_FAILED';
-const UPDATE_MOVIE_VALIDATION_FAILED = 'GET_UPDATE_MOVIE_VALIDATION_FAILED';
+// const UPDATE_MOVIE_VALIDATION_FAILED = 'GET_UPDATE_MOVIE_VALIDATION_FAILED';
 const UPDATE_MOVIE_REQUEST = 'UPDATE_MOVIE_REQUEST';
 const UPDATE_MOVIE_SUCCESS = 'UPDATE_MOVIE_SUCCESS';
 const UPDATE_MOVIE_FAILED = 'UPDATE_MOVIE_FAILED';
@@ -67,14 +67,13 @@ function updateMovieFailed(error) {
 
 export function getUpdateMovie(id){
     return (dispatch,getState) =>{
+        
         dispatch(getupdateMovieRequest());
-
         return (firebase.firestore().collection("movies").doc(id)
         .get())
         .then((doc)=>{
             if(doc.exists){
-                console.log("doc");
-                dispatch(getupdateMovieSuccess(doc));
+                dispatch(getupdateMovieSuccess(doc.data()));
             }else{
                 dispatch(getupdateMovieFailed(new Error("movie is not found")))
             }

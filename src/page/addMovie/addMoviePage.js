@@ -5,7 +5,7 @@ import AddMovie from '../../component/movie/addMovie'
 class AddMoviePage extends Component {
     render(){
         return(
-            <Grid >
+            <Grid centered>
                 <Grid.Column mobile={16} tablet={12} computer={10}>
                      <AddMovie/>
                 </Grid.Column>
