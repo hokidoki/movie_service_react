@@ -10,7 +10,12 @@ import movieListReducer from './movieListReducer'
 import getMyMovieList from './myMovieReducer'
 import updateMovieReducer from './updateMovieReducer'
 import deleteMyMovieReducer from './deleteMyMovie'
+
+import ReactGA from 'react-ga'; 
 //이제 state.auth.user로 사용해야한다. 
+
+ReactGA.initialize('UA-141185191-1');
+
 export function configureStore() {
 
     const middleware = window.__REDUX_DEVTOOLS_EXTENSION__ ? 

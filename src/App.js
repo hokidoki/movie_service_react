@@ -19,12 +19,23 @@ import MyMoviePage from './page/myMovieList/myMovieListPage'
 
 import UpdateMoviePage from './page/updateMovie/UpdateMoviePage'
 
+import { createBrowserHistory }from 'history'
+
+const history = createBrowserHistory();
+
+//리액트 라우터를 쓸때 ga를 쓰는 방법 
+//router 에 히스토리 를 넣는다.
+
+history.listen((location, action) => {
+  console.log(location.pathname + location.search)
+})
+
 class App extends Component {
 
   render() {
     return (
       <div >
-        <Router>
+        <Router history={history}>
           <Header />
           <Route path="/" exact component={() => {
             if (this.props.user && this.props.user.display) {
