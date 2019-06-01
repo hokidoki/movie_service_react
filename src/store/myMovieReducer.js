@@ -1,9 +1,9 @@
-import firebase from 'firebase'
+import firebase from 'firebase';
 import { DELETE_MY_MOVIE_SUCCESS} from './deleteMyMovie';
 
-const GET_MY_MOVIE_LIST_REQUEST = 'GET_MY_MOVIE_LIST_REQUEST';
-const GET_MY_MOVIE_LIST_SUCCESS = 'GET_MY_MOVIE_LIST_SUCCESS';
-const GET_MY_MOVIE_LIST_FAILED = 'GET_MY_MOVIE_LIST_FAILED';
+const GET_MY_MOVIE_LIST_FAILED = "GET_MY_MOVIE_LIST_FAILED";
+const GET_MY_MOVIE_LIST_REQUEST = "GET_MY_MOVIE_LIST_REQUEST";
+const GET_MY_MOVIE_LIST_SUCCESS = "GET_MY_MOVIE_LIST_SUCCESS";
 
 function getMyMovieListRequest() {
     return {
