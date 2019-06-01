@@ -84,63 +84,65 @@ export function getUpdateMovie(id){
 }
 
 export function updateMovie(name,director,openedAt,description,file){
+    console.log(name,director,openedAt,description,file);
     return (dispatch,getState)  =>{
         dispatch(updateMovieRequest());
         //이미지는 이미지스토어에
         //데이터는 데이터베이스에 
-
-
         //아이디를 가져오기 위한 첫번째 방법
-
         // 게시글의 소유주를 등록하기 위해서 유저아이디를 가져왔다. 
         // const userId = firebase.auth().currentUser.uid;
-
         // 두 번째 방법 redux-state에서 가져오는 방법 ,첫번째 파라미터로 디스패치 , 두번째 겟 스테이트 함수 가 있다. 
         const userId = getState().auth.user.uid
-
-        if(file){
-            //이미지 저장하고 이미지 다운로드 url 가지고 왓
-            //데이터 베이스에 같이 저장 . 
-            //images/filename.jpg
+        if (file) {
+            // 이미지 저장하고 이미지 다운로드 URL 가지고와서
+            // 데이터베이스에 같이 저장
             const filename = uuid.v1();
             const extension = file.name.split('.').pop();
             const url = `movies/${filename}.${extension}`;
             const movieRef = firebase.storage().ref().child(url);
             movieRef.put(file)
-                .then((snapshot)=>{
+                .then((snapshot) => {
                     return snapshot.ref.getDownloadURL();
-                }).then((downloadURL)=>{
-                    firebase.firestore().collection('movies').update({
-                        name : name,
-                        imageURL : downloadURL,
-                        userId, userId,
-                        director : director,
-                        openedAt : openedAt,
-                        description : description,
-                        createdAt : new Date(),
-                        updatedAt : new Date(),
-                    }).then(()=>{
-                        dispatch(updateMovieSuccess());
-                    }).catch((error)=>{
-                        dispatch(updateMovieFailed(error))
+                })
+                .then((downloadURL) => {
+                    return firebase.firestore().collection('movies').update({
+                        name: name,
+                        imageURL: downloadURL,
+                        userId: userId,
+                        director: director,
+                        openedAt: openedAt,
+                        description: description,
+                        createdAt: new Date(),
+                        updatedAt: new Date(),
                     })
                 })
-        }else{
+                .then(() => {
+                    
+                    dispatch(updateMovieSuccess());
+                })
+                .catch((error) => {
+                    dispatch(updateMovieFailed(error));
+                })
+
+        } else {
             firebase.firestore().collection('movies').update({
-                name : name,
-                director : director,
-                openedAt : openedAt,
-                description : description,
-                createdAt : new Date(),
-                updatedAt : new Date(),
-            }).then(()=>{
+                name: name,
+                userId,userId,
+                director: director,
+                openedAt: openedAt,
+                description: description,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            }).then(() => {
                 dispatch(updateMovieSuccess());
-            }).catch((error)=>{
-                dispatch(updateMovieFailed(error))
+            }).catch((error) => {
+                dispatch(updateMovieFailed(error));
             })
         }
     }
 }
+
 
 
 const initialState = {
