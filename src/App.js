@@ -20,6 +20,7 @@ import MyMoviePage from './page/myMovieList/myMovieListPage'
 import UpdateMoviePage from './page/updateMovie/UpdateMoviePage'
 
 import { createBrowserHistory }from 'history'
+import ReactGA from 'react-ga'
 
 const history = createBrowserHistory();
 
@@ -27,7 +28,8 @@ const history = createBrowserHistory();
 //router 에 히스토리 를 넣는다.
 
 history.listen((location, action) => {
-  console.log(location.pathname + location.search)
+  const url  = location.pathname + location.search;
+  ReactGA.
 })
 
 class App extends Component {
