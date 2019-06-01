@@ -7,11 +7,6 @@ import UpdateMovie from '../../component/movie/updateMovie'
 
 class UpdateMoviePage extends Component {
 
-     
-    componentDidMount(){
-       
-    }
-    
     
     render(){
         const movie = this.props.match.params.movieId;
