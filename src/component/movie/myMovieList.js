@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { getMyMovieList} from '../../store/myMovieReducer'
 import { Grid, Button, GridRow } from 'semantic-ui-react'
 import MyMovieItem from './myMovieItem'
+import { deleteMyMovie } from '../../store/deleteMyMovie'
 
 class MyMovieList extends Component {
 
@@ -15,10 +16,14 @@ class MyMovieList extends Component {
             this.props.getMyMovieList(this.props.list[this.props.list.length -1]);
         } else
         this.props.getMyMovieList(null);
-    }
-    onItemClick = (id) =>{
-        console.log("onitemclcik", id);
+    }  
+    onUpdateClick = (id) =>{
+        console.log("onUpdate", id);
         this.props.history.push(`/movie/${id}/update`)
+    }
+    onDeleteClick = (id) =>{
+        console.log('delte', id)
+        this.props.deleteMyMovie(id);
     }
     
     render(){
@@ -28,7 +33,16 @@ class MyMovieList extends Component {
             const { name, opendAt,director,description,imageURL} =item.data();
             return (
                 <Grid.Column key={id} mobile={8} tablet={5} computer={4}>
-                <MyMovieItem id={id} onClick={this.onItemClick}name={name} opendAt={opendAt} director={director} description={description} imageURL={imageURL}likeCnt={0}/>
+                <MyMovieItem 
+                    id={id} 
+                    name={name}
+                    opendAt={opendAt} 
+                    director={director} 
+                    description={description} 
+                    imageURL={imageURL}
+                    likeCnt={0}
+                    onDeleteClick = {this.onDeleteClick} 
+                    onUpdateClick={this.onUpdateClick}/>
           </Grid.Column>
             )
           
@@ -57,7 +71,8 @@ const mapStateToprops = (state) =>{
 
 const mapDipatchToProps = (dispatch) => {
     return {
-        getMyMovieList : (last)=>dispatch(getMyMovieList(last))
+        getMyMovieList : (last)=>dispatch(getMyMovieList(last)),
+        deleteMyMovie : (id) => dispatch(deleteMyMovie(id))
     }
 }
 

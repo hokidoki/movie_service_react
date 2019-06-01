@@ -9,8 +9,18 @@ import addMovieReducer from './addMovieReducer'
 import movieListReducer from './movieListReducer'
 import getMyMovieList from './myMovieReducer'
 import updateMovieReducer from './updateMovieReducer'
+import deleteMyMovieReducer from './deleteMyMovie'
 //이제 state.auth.user로 사용해야한다. 
 export function configureStore() {
+
+    const middleware = window.__REDUX_DEVTOOLS_EXTENSION__ ? 
+    compose(
+        applyMiddleware(thunk),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+        //이게 먼저 
+    ) : applyMiddleware(thunk)
+    
+
     return createStore(
         combineReducers({
             auth: authReducer,
@@ -21,12 +31,9 @@ export function configureStore() {
             addMovie : addMovieReducer,
             movieList : movieListReducer,
             getMyMovieList : getMyMovieList,
-            updateMovie : updateMovieReducer
+            updateMovie : updateMovieReducer,
+            deleteMyMovie : deleteMyMovieReducer
         }),
-        compose(
-            applyMiddleware(thunk),
-            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-            //이게 먼저 
-        )
+        middleware
     )
 }

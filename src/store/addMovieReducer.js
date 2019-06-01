@@ -86,6 +86,8 @@ export function addMovie(name,director,openedAt,description,file){
         }else{
             firebase.firestore().collection('movies').add({
                 name : name,
+                imageURL : "",
+                userId : userId,
                 director : director,
                 openedAt : openedAt,
                 description : description,

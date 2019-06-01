@@ -9,12 +9,19 @@ class MyMovieItem extends Component {
         description : '',
         likeCnt : '',
         id : null,
-        onClick : null,
+        onDeleteClick : null,
+        onUpdateClick: null,
         }
 
-        onClick = ()=>{
-            if(this.props.onClick && this.props.id){
-                this.props.onClick(this.props.id);
+        onUpdate = ()=>{
+            if(this.props.onUpdateClick && this.props.id){
+                this.props.onUpdateClick(this.props.id);
+            }
+        }
+
+        onDelete = ()=>{
+            if(this.props.onDeleteClick && this.props.id){
+                this.props.onDeleteClick(this.props.id);
             }
         }
     render() {
@@ -45,8 +52,8 @@ class MyMovieItem extends Component {
                         {description}
                     </Card.Description>
                 <Card.Content extra>
-                <Button onClick={this.onClick}>수정하기</Button>
-                <Button onClick={this.onClick}>삭제하기</Button>
+                <Button onClick={this.onUpdate}>수정하기</Button>
+                <Button onClick={this.onDelete}>삭제하기</Button>
                 </Card.Content>
                 
 
