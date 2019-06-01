@@ -16,11 +16,12 @@ class UpdateMovie extends Component {
     render() {
         if(this.props.movie){
             const {error, isLoading} = this.props;
-            const {name,opendAt,description,imageURL} = this.props.movie;
-            console.log(name);
+            const {name,openedAt,description,imageURL,director} = this.props.movie;
+            console.log(this.props.movie);
+            
             return (
                 <Form>
-                    <MovieForm ref="form" />
+                    <MovieForm ref="form" name={name} director={director} openedAt={openedAt} description={description} image={imageURL}/>
                     <Grid>
                         <Grid.Row centered>
                             <Grid.Column mobile={16} tablet={8} computer={8}>
@@ -43,7 +44,7 @@ class UpdateMovie extends Component {
             console.log(this.props);
             return (
                 <Form>
-                    <MovieForm ref="form"/>
+                    <MovieForm ref="form" name={"안녕하세요"}/>
                     <Grid>
                         <Grid.Row centered>
                             <Grid.Column mobile={16} tablet={8} computer={8}>

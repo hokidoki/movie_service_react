@@ -11,6 +11,7 @@ class MovieForm extends Component {
         image : null
     }
     componentDidMount() {
+        console.log(this.props)
         const {
             name,
             director,
@@ -24,7 +25,9 @@ class MovieForm extends Component {
             director,
             openedAt,
             description,
-            image,
+            image : {
+                src : image
+            },
         })
     }
     
@@ -34,7 +37,12 @@ class MovieForm extends Component {
         })
     }
     onAddImage = ()=>{
-        this.refs.image.click();
+        if(this.state.image != null){
+            this.onImageDelete();
+            this.refs.image.click();
+        }else{
+            this.refs.image.click();
+        }
     }
 
     onImageChange = (e)=>{
@@ -88,7 +96,7 @@ class MovieForm extends Component {
     
     render() {
         const { name, director, openedAt, description,image } = this.state;
-        console.log(123);
+        console.log(this.state);
         return (
             <Form>
                 <Grid>
